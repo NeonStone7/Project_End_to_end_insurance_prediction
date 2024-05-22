@@ -20,13 +20,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # - name: Run tests
-    #   run: |
-    #     pytest
+    - name: Debug environment variables
+      run: |
+        echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
+        echo "AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}"
+      # Note: Do not print secrets in production logs. This is for debugging only.
 
     - name: Deploy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
       run: |
-        python ./develop/data_retrieval.py
+        python deploy_script.py
