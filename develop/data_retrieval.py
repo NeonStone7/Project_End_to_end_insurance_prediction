@@ -5,4 +5,4 @@ import numpy as np
 import boto3
 import os
 
-print(os.getenv('AWS_ACCESS_KEY'))
+print(os.getenv('AWS_SECRET_ACCESS_KEY'))
