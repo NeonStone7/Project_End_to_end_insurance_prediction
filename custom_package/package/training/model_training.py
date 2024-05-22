@@ -4,6 +4,9 @@ from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, PrecisionRe
 from sklearn.model_selection import cross_val_score,cross_val_predict, StratifiedKFold
 from sklearn.metrics import  confusion_matrix, classification_report, precision_recall_curve, roc_curve
 from sklearn.metrics import roc_auc_score, make_scorer
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_curve, roc_auc_score
+from sklearn.metrics import log_loss, confusion_matrix, classification_report, precision_recall_curve
+from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, PrecisionRecallDisplay
 
 multi_roc_scorer = make_scorer(lambda y_in, y_p_in: roc_auc_score(y_in, y_p_in, multi_class='ovr'), needs_proba=True)
 
@@ -113,3 +116,58 @@ def model_evaluation(models, xtrain, ytrain, experiment_number):
     'Precision': precision,
     'Recall': recall
     })
+
+def evaluate_sets(ytrue, ypred, yproba, set_type, name):
+
+    print('Starting evaluation.....')
+    
+    """This function evaluates the performance of a fitted model. It displays performance plots like confusion_matrix,
+    roc_curve, precision-recall curve
+    
+    Input:
+    ytrue: true values of y
+    ypred: predicted values of y
+    yproba: predicted probabilities of y
+    
+    Outputs: 
+    DataFrame with models and metrics, and plots
+    
+    """
+    
+    accuracy, precision, recall, f1_scores, auc_scores = [],[],[],[],[]
+            
+    acc = accuracy_score(ytrue, ypred)
+    accuracy.append(acc)
+
+    prec =  precision_score(ytrue, ypred)
+    precision.append(prec)
+
+    rec =  recall_score(ytrue, ypred)
+    recall.append(rec)
+
+    f1_ =  f1_score(ytrue, ypred)
+    f1_scores.append(f1_)
+
+    auc =  roc_auc_score(ytrue, ypred)
+    auc_scores.append(auc)
+
+
+    fpr, tpr, _ = roc_curve(ytrue, yproba)
+
+    precisions, recalls, _ =  precision_recall_curve(ytrue, yproba)
+
+    cm = confusion_matrix(ytrue, ypred)
+
+    performance_plots(cm,fpr,tpr,auc,name, precisions,recalls)
+
+    print(classification_report(ytrue, ypred))
+        
+        
+    return pd.DataFrame({
+    'Set type': set_type,
+    'AUC': auc_scores,
+    'F1': f1_scores,
+    'Accuracy': accuracy,
+    'Precision': precision,
+    'Recall': recall
+    }, index = [0])
