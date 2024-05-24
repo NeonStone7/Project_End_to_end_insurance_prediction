@@ -1,3 +1,4 @@
+"""Flask app to expose model to users"""
 import json
 import pandas as pd
 from flask import Flask, render_template, request, send_file
@@ -7,7 +8,7 @@ app = Flask(__name__)
 
 # open config
 CONFIG_PATH = './config.json'
-with open(CONFIG_PATH) as config_file:
+with open(CONFIG_PATH, 'r') as config_file:
     config = json.load(config_file)
 
 # extract required variables

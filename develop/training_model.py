@@ -1,3 +1,4 @@
+"""To train model and register to mlflow"""
 #import preprocessor
 from sklearn import set_config
 set_config(transform_output = 'pandas')

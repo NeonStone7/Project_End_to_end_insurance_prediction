@@ -1,3 +1,4 @@
+"""To train preprocessor and register to mlflow"""
 # Import necessary modules and functions
 import json
 import warnings
@@ -9,7 +10,7 @@ from package.training.model_training import split_data_by_type
 from package.preprocessing.data_preprocessing import create_pipeline, winsorize, percentile_imputer
 import pandas as pd
 import numpy as np
-from category_encoders import OneHotEncoder, OrdinalEncoder
+from category_encoders import  OrdinalEncoder
 from sklearn.preprocessing import FunctionTransformer, RobustScaler
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline

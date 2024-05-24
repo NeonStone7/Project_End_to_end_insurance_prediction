@@ -1,3 +1,4 @@
+"""Module to hold useful functions for working with mlflow"""
 import mlflow
 
 def set_or_create_mlflow_experiment(experiment_name, artifact_location, tags = {'env':'dev','version':'1.0.0'}):

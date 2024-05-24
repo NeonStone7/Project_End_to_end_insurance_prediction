@@ -1,3 +1,4 @@
+"""Module to retrieve data from s3"""
 import os
 import json
 from package.data_retrieval.data_retrieval import s3_retrieval
@@ -22,7 +23,7 @@ s3_client = boto3.client('s3',aws_access_key_id=access_key_id,
 CONFIG_PATH = "./config.json"
 
 # Opening config file
-with open(CONFIG_PATH, mode = 'r') as file:
+with open(CONFIG_PATH, 'r') as file:
     
     config = json.load(file)
 

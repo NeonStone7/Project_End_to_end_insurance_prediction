@@ -1,3 +1,4 @@
+"""To build custom package"""
 from setuptools import setup
 setup(
     name = 'package',
