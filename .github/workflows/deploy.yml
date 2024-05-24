@@ -28,7 +28,7 @@ jobs:
 
     - name: Run pylint
       run: |
-        pylint --recursive=y *.py **/*.py **/**/*.py **/**/**/*.py --disable=C0303, C0304, C0301, R1710, E0401,W0404, C0411 ,C0301,C0413,W0613 --fail-under=8
+        pylint --recursive=y *.py **/*.py **/**/*.py **/**/**/*.py  --fail-under=8.0
 
     - name: Deploy
       env:
