@@ -1,12 +1,4 @@
 #import preprocessor
-from preprocessor import split_and_load
-from hyperparameter_tuning import run_hyperparameter_tuning
-import pandas as pd
-import xgboost as xgb
-from imblearn.under_sampling import RandomUnderSampler
-pd.pandas.set_option('display.max_rows',None)
-pd.pandas.set_option('display.max_columns',None)
-pd.set_option('display.max_colwidth', None)
 from sklearn import set_config
 set_config(transform_output = 'pandas')
 import warnings
@@ -18,16 +10,24 @@ import mlflow
 from mlflow import MlflowClient
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
+from preprocessor import split_and_load
+from hyperparameter_tuning import run_hyperparameter_tuning
+import pandas as pd
+import xgboost as xgb
+from imblearn.under_sampling import RandomUnderSampler
+pd.pandas.set_option('display.max_rows',None)
+pd.pandas.set_option('display.max_columns',None)
+pd.set_option('display.max_colwidth', None)
 ###################################################################################44
 
 # xtrain, ytrain, xval, yval, xtest, ytest = split_and_load()
 # preprocessor = load_pipeline()
 
 # open config
-config_path = "./config.json"
+CONFIG_PATH = "./config.json"
 
 # Opening JSON file
-with open(config_path) as file:
+with open(CONFIG_PATH, 'r') as file:
     
     config = json.load(file)
 
@@ -158,6 +158,6 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
 
 # save to config
 json_object = json.dumps(config, indent=4)
-with open(config_path, "w") as outfile:
+with open(CONFIG_PATH, "w") as outfile:
     outfile.write(json_object)
 

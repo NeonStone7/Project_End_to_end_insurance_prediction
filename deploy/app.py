@@ -1,14 +1,14 @@
+import json
 import pandas as pd
 from flask import Flask, render_template, request, send_file
-import json
 import mlflow
 
 app = Flask(__name__)
 
 # open config
-config_path = './config.json'
-with open(config_path) as file:
-    config = json.load(file)
+CONFIG_PATH = './config.json'
+with open(CONFIG_PATH) as config_file:
+    config = json.load(config_file)
 
 # extract required variables
 experiment_name = config['Develop']['Preprocessor']['experiment_name'] 

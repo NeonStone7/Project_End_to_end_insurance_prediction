@@ -1,23 +1,18 @@
+from sklearn import set_config
+set_config(transform_output = 'pandas')
+import warnings
+warnings.simplefilter(action="ignore")
+from sklearn.model_selection import cross_val_score
 import pandas as pd
-
 # hyperparameter tuning
 from hyperopt import hp
 from hyperopt import tpe, hp, fmin, STATUS_OK,Trials, partial
-
 import xgboost as xgb
-
 # data settings
 pd.pandas.set_option('display.max_rows',None)
 pd.pandas.set_option('display.max_columns',None)
 pd.set_option('display.max_colwidth', None)
 
-
-from sklearn import set_config
-set_config(transform_output = 'pandas')
-from sklearn.model_selection import cross_val_score
-
-import warnings
-warnings.simplefilter(action="ignore")
 
 ########## xgboost #############
 xgb_search_space = {
@@ -70,4 +65,5 @@ def run_hyperparameter_tuning(xtrain_exp1, ytrain_exp1):
         if hyperparam in best:
             
             best[hyperparam] = int(best[hyperparam])
+
     return trials_x.best_trial['result']['loss'], best

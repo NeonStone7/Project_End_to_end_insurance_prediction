@@ -1,10 +1,7 @@
-from package.data_retrieval.data_retrieval import s3_retrieval, write_to_s3
-from package.training.model_training import model_evaluation, split_data_by_type, performance_plots
-import pandas as pd
-import numpy as np
-import boto3
 import os
 import json
+from package.data_retrieval.data_retrieval import s3_retrieval
+import boto3
 from dotenv import load_dotenv
 
 # get the environment variable
@@ -19,12 +16,13 @@ access_key = os.getenv('AWS_ACCESS_KEY')
 access_key_id = os.getenv('AWS_ACCESS_KEY')
 
 # create S3 client object 
-s3_client = boto3.client('s3',aws_access_key_id=access_key_id,aws_secret_access_key=access_key)
+s3_client = boto3.client('s3',aws_access_key_id=access_key_id,
+                         aws_secret_access_key=access_key)
 
-config_path = "./config.json"
+CONFIG_PATH = "./config.json"
 
 # Opening config file
-with open(config_path) as file:
+with open(CONFIG_PATH, mode = 'r') as file:
     
     config = json.load(file)
 

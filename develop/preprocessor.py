@@ -1,4 +1,9 @@
 # Import necessary modules and functions
+import json
+import warnings
+warnings.simplefilter(action="ignore")
+from sklearn import set_config
+set_config(transform_output='pandas')
 from data_retrieval import load_data
 from package.training.model_training import split_data_by_type
 from package.preprocessing.data_preprocessing import create_pipeline, winsorize, percentile_imputer
@@ -10,22 +15,16 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 import mlflow
 from mlflow import MlflowClient
-import warnings
-import json
 from mlflow_utils import set_or_create_mlflow_experiment
 
 # Data settings
 pd.pandas.set_option('display.max_rows', None)
 pd.pandas.set_option('display.max_columns', None)
 pd.set_option('display.max_colwidth', None)
-warnings.simplefilter(action="ignore")
-
-from sklearn import set_config
-set_config(transform_output='pandas')
 
 # Load configuration
-config_path = "./config.json"
-with open(config_path) as file:
+CONFIG_PATH = "./config.json"
+with open(CONFIG_PATH, 'r') as file:
     config = json.load(file)
 
 # Define functions
@@ -75,7 +74,7 @@ class PreprocessorWrapper(mlflow.pyfunc.PythonModel):
 # Main logic for preprocessor.py
 def main():
     """We create this so when we import this script in another, it doesn't run thw whole script"""
-    xtrain, ytrain, xval, yval, xtest, ytest = split_and_load()
+    xtrain, _, _, _, _, _ = split_and_load()
     preprocessor = load_pipeline()
 
     config['Develop'] = {}
@@ -134,7 +133,7 @@ def main():
 
     # Save updated config
     json_object = json.dumps(config, indent=4)
-    with open(config_path, "w") as outfile:
+    with open(CONFIG_PATH, "w") as outfile:
         outfile.write(json_object)
 
 # Ensure that main() runs only when this script is executed directly
