@@ -19,12 +19,16 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install pylint
+        pip install jupytext
+    
+    - name: Convert jupyter files to py files
+      run: |
+        jupytext --to py $(git ls-files '*.ipynb')
 
     - name: Run pylint
       run: |
-        pip install pylint
-        pylint --fail-under=8.0 **/*.py
-        pylint -d  C0303, C0304, C0301, R1710, E0401,W0404, C0411 ,C0301,C0413,W0613   **/*.py
+        pylint --recursive=y *.py **/*.py **/**/*.py **/**/**/*.py --disable=C0303, C0304, C0301, R1710, E0401,W0404, C0411 ,C0301,C0413,W0613 --fail-under=8
 
     - name: Deploy
       env:

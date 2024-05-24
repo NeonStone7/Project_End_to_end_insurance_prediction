@@ -534,5 +534,15 @@
                 "scale_pos_weight": 2
             }
         }
+    },
+    "Develop": {
+        "Preprocessor": {
+            "experiment_name": "Porto_Seguro_Insurance_prediction",
+            "run_name": "creating_preprocessor",
+            "preprocessor_model_name": "preprocessor",
+            "artifact_path": "preprocessor_artifacts",
+            "run_id": "00cf7bb41d2e445e8225ced2b7cdad61",
+            "version": 12
+        }
     }
 }
