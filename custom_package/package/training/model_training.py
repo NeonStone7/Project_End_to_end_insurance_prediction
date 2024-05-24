@@ -5,7 +5,7 @@ from sklearn.model_selection import cross_val_score,cross_val_predict, Stratifie
 from sklearn.metrics import  confusion_matrix, classification_report, precision_recall_curve, roc_curve
 from sklearn.metrics import roc_auc_score, make_scorer
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_curve, roc_auc_score
-from sklearn.metrics import log_loss, confusion_matrix, classification_report, precision_recall_curve
+from sklearn.metrics import confusion_matrix, classification_report, precision_recall_curve
 from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, PrecisionRecallDisplay
 
 multi_roc_scorer = make_scorer(lambda y_in, y_p_in: roc_auc_score(y_in, y_p_in, multi_class='ovr'), needs_proba=True)

@@ -57,7 +57,7 @@ xtest_processed = preprocessor_model.predict(xtest)
 
 # resample train data
 under_sampler = RandomUnderSampler()
-xtrain_samp, ytrain_samp = under_sampler.fit_resample()
+xtrain_samp, ytrain_samp = under_sampler.fit_resample(xtrain_processed, ytrain)
 
 # feature selection
 rf = RandomForestClassifier()
@@ -161,4 +161,3 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
 json_object = json.dumps(config, indent=4)
 with open(CONFIG_PATH, "w") as outfile:
     outfile.write(json_object)
-
