@@ -20,11 +20,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Debug environment variables
+    - name: Run pylint
       run: |
-        echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
-        echo "AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}"
-      # Note: Do not print secrets in production logs. This is for debugging only.
+        pip install pylint
+        pylint **/*.py
 
     - name: Deploy
       env:

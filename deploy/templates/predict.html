@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Predictions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Make Predictions</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/predict">Predict</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Upload Your CSV File</h2>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <label for="file">Choose CSV file:</label>
+            <input type="file" id="file" name="file" accept=".csv" required>
+            <button type="submit">Predict</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 Oamen Modupe. All rights reserved.</p>
+    </footer>
+</body>
+</html>

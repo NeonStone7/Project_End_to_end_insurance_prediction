@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1716455156360
+current_stage: Production
+description: null
+last_updated_timestamp: 1716455156460
+name: preprocessor
+run_id: 185e11be5b0040138b3d92a253891755
+run_link: null
+source: preprocessor_artifacts/preprocessor_artifacts
+status: READY
+status_message: null
+storage_location: preprocessor_artifacts/preprocessor_artifacts
+user_id: null
+version: 11

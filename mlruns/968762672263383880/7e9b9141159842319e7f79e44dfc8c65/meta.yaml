@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Oamen/OneDrive/Documents/DATA PROJECTS/Insurance_claim_prediction_porto/model_artifacts/7e9b9141159842319e7f79e44dfc8c65/artifacts
+end_time: 1716479193124
+entry_point_name: ''
+experiment_id: '968762672263383880'
+lifecycle_stage: active
+run_id: 7e9b9141159842319e7f79e44dfc8c65
+run_name: hyperparameter_tuning
+run_uuid: 7e9b9141159842319e7f79e44dfc8c65
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1716477674248
+status: 4
+tags: []
+user_id: Oamen

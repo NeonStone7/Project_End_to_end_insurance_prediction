@@ -440,40 +440,41 @@
                 "ps_calc_13",
                 "ps_calc_14"
             ],
-            "Important_columns": [
-                "ps_ind_01",
-                "ps_ind_05_cat",
-                "ps_ind_06_bin",
-                "ps_ind_07_bin",
-                "ps_ind_08_bin",
-                "ps_ind_17_bin",
-                "ps_reg_01",
-                "ps_car_07_cat",
-                "ps_car_08_cat",
-                "ps_car_09_cat",
-                "ps_calc_03",
-                "ps_calc_05",
-                "ps_calc_06",
-                "ps_calc_07",
-                "ps_calc_09",
-                "ps_calc_15_bin",
-                "ps_calc_16_bin",
-                "ps_calc_18_bin",
-                "ps_calc_19_bin",
-                "ps_calc_20_bin",
-                "ps_ind_15",
-                "ps_reg_02",
-                "ps_reg_03",
-                "ps_car_01_cat",
-                "ps_car_11_cat",
-                "ps_car_12",
-                "ps_car_13",
-                "ps_car_15",
-                "ps_calc_08",
-                "ps_calc_10",
-                "ps_calc_13",
-                "ps_calc_14"
-            ]
+            "Important_columns": {
+                "Run_1": [
+                    "ps_ind_01",
+                    "ps_ind_02_cat",
+                    "ps_ind_05_cat",
+                    "ps_reg_01",
+                    "ps_car_09_cat",
+                    "ps_car_11",
+                    "ps_calc_01",
+                    "ps_calc_02",
+                    "ps_calc_03",
+                    "ps_calc_04",
+                    "ps_calc_05",
+                    "ps_calc_06",
+                    "ps_calc_07",
+                    "ps_calc_09",
+                    "ps_calc_12",
+                    "ps_ind_03",
+                    "ps_ind_15",
+                    "ps_reg_02",
+                    "ps_reg_03",
+                    "ps_car_01_cat",
+                    "ps_car_06_cat",
+                    "ps_car_11_cat",
+                    "ps_car_12",
+                    "ps_car_13",
+                    "ps_car_14",
+                    "ps_car_15",
+                    "ps_calc_08",
+                    "ps_calc_10",
+                    "ps_calc_11",
+                    "ps_calc_13",
+                    "ps_calc_14"
+                ]
+            }
         }
     },
     "Hyperparameter Tuning": {
@@ -496,17 +497,17 @@
                 "num_leaves": 28,
                 "reg_alpha": 0.8485727275388625,
                 "reg_lambda": 0.25697353165485826
+            },
+            "Xgboost": {
+                "gamma": 1.0704452088125338,
+                "learning_rate": 0.12998844312823607,
+                "max_depth": 7,
+                "min_child_weight": 8,
+                "n_estimators": 364,
+                "reg_alpha": 0.053294950056154256,
+                "reg_lambda": 0.9374649130943011,
+                "scale_pos_weight": 2
             }
-        }
-    },
-    "Develop": {
-        "Preprocessor": {
-            "experiment_name": "Porto_Seguro_Insurance_prediction",
-            "run_name": "creating_preprocessor",
-            "preprocessor_model_name": "preprocessor",
-            "artifact_path": "preprocessor_artifacts",
-            "run_id": "3db36e482acc4742a64ee76ebaf21ee8",
-            "version": 8
         }
     }
 }

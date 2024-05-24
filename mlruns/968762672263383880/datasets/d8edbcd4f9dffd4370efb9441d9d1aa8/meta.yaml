@@ -1,0 +1,10 @@
+digest: 3ec0707d
+name: dataset
+profile: '{"features_shape": [379447, 57], "features_size": 21628479, "features_nbytes":
+  86513916}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float32\", \"shape\": [-1, 57]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "Oamen", "mlflow.source.name": "c:/Users/Oamen/OneDrive/Documents/DATA
+  PROJECTS/Insurance_claim_prediction_porto/develop/training_model.py", "mlflow.source.type":
+  "LOCAL"}}'
+source_type: code
