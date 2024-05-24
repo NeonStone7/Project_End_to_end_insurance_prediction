@@ -23,7 +23,7 @@ jobs:
     - name: Run pylint
       run: |
         pip install pylint
-        pylint **/*.py
+        pylint --fail-under=8.0 **/*.py
         pylint -d  C0303, C0304, C0301, R1710, E0401,W0404, C0411 ,C0301,C0413,W0613   **/*.py
 
     - name: Deploy
