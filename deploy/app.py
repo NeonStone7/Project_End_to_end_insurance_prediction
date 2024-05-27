@@ -57,6 +57,11 @@ def predict():
 
             # return the csv
             return send_file(output_path, as_attachment = True)
+        
+@app.route('/monitor')
+def monitor():
+
+    return render_template('./data_and_target_drift_dashboard.html')
 
 if __name__ == '__main__':
     app.run(debug = True)

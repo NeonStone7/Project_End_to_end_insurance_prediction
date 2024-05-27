@@ -602,21 +602,21 @@
                 "ps_calc_14"
             ],
             "Training metrics": {
-                "AUC": 0.9171637744034707,
-                "F1": 0.9232816855428041,
-                "Accuracy": 0.9171637744034707,
-                "Precision": 0.859782049483186,
-                "Recall": 0.9969088937093276
+                "AUC": 0.9007863340563991,
+                "F1": 0.9094419007548571,
+                "Accuracy": 0.9007863340563992,
+                "Precision": 0.8364671067607558,
+                "Recall": 0.9963665943600868
             },
             "Test metrics": {
-                "AUC": 0.5589261664324552,
-                "F1": 0.08102850102136766,
-                "Accuracy": 0.3651127886920096,
-                "Precision": 0.04277058944341754,
-                "Recall": 0.7679778733866011
+                "AUC": 0.5527403150484388,
+                "F1": 0.07966296438146304,
+                "Accuracy": 0.3540467283438991,
+                "Precision": 0.04201312910284464,
+                "Recall": 0.7670559311616472
             },
-            "run_id": "57aec63ec9b341599cb41b3208620fbe",
-            "model_version": 8
+            "run_id": "905dc149ebbf4ea78eb02adabd7dba00",
+            "model_version": 10
         },
         "Hyperparameter_Tuning": {
             "run_name": "hyperparameter_tuning"
