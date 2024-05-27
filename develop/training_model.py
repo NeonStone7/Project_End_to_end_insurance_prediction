@@ -64,7 +64,7 @@ rf = RandomForestClassifier()
 selector = SelectFromModel(rf, threshold = 0.001).fit(xtrain_samp, ytrain_samp)
 # select features and save them to config
 selected_columns = xtrain_samp.columns[selector.get_support()]
-config['Develop']['Model']['selected_columns'] = selected_columns
+config['Develop']['Model']['selected_columns'] = selected_columns.tolist()
 
 # filter data down to selected columns
 xtrain_samp = xtrain_samp[selected_columns]
@@ -80,18 +80,19 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
 
     client = MlflowClient()
     
-    with mlflow.start_run(run_name = hyp_run_name, experiment_id=experiment_id, nested=True) as tuning_run:
+    # with mlflow.start_run(run_name = hyp_run_name, experiment_id=experiment_id, nested=True) as tuning_run:
         
-        # perform hyperparameter tuning and save best hyperparameters and loss to config
-        loss, hyperparams = run_hyperparameter_tuning(xval_processed, yval)
-        mlflow.log_params(hyperparams)
+    #     # perform hyperparameter tuning and save best hyperparameters and loss to config
+    #     loss, hyperparams = run_hyperparameter_tuning(xval_processed, yval)
+    #     mlflow.log_params(hyperparams)
 
-        config['Develop']['Hyperparameter_Tuning']['Best hyperparameters'] = hyperparams
-        config['Develop']['Hyperparameter_Tuning']['Best hyperparameters'] = hyperparams
-        config['Develop']['Hyperparameter_Tuning']['loss'] = loss
+    #     config['Develop']['Hyperparameter_Tuning']['Best hyperparameters'] = hyperparams
+    #     config['Develop']['Hyperparameter_Tuning']['Best hyperparameters'] = hyperparams
+    #     config['Develop']['Hyperparameter_Tuning']['loss'] = loss
         
-        mlflow.end_run()
+    #     mlflow.end_run()
     # instantiate model with best hyperparameters
+    hyperparams = config['Hyperparameter Tuning']['best_hyperparameters']['Xgboost']
     model = xgb.XGBClassifier(**hyperparams)
 
     # automatic logging of artifacts
@@ -104,26 +105,36 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
     y_train_proba = model.predict_proba(xtrain_samp)[:, 1]
 
     # evaluate model performance on test set
-    train_results = evaluate_sets(ytrain, y_train_pred, y_train_proba, 
+    train_results = evaluate_sets(ytrain_samp, y_train_pred, y_train_proba, 
                               'Train', 'Train')
     
     # log training metrics
-    mlflow.log_metrics(train_results.to_dict())
-    config['Develop']['Model']['Training metrics'] = train_results.to_dict()
+    train_results_dict = train_results[['AUC', 'F1', 'Accuracy', 'Precision', 'Recall']].to_dict()
+    # return only metrics and values
+    train_results_dict_re = {metric:list(value.values())[0] for metric, value in train_results_dict.items()}
+
+    mlflow.log_metrics(train_results_dict_re)
+    config['Develop']['Model']['Training metrics'] = train_results_dict_re
+
 
     # evaluate model performance on test set
     ytest_pred = model.predict(xtest_processed)
     ytest_proba = model.predict_proba(xtest_processed)[:, 1]
 
-    test_resuls = evaluate_sets(ytest, ytest_pred, ytest_proba, 
+    test_results = evaluate_sets(ytest, ytest_pred, ytest_proba, 
                               'Test', 'Test')
     
     # log test metrics
-    mlflow.log_metrics(test_resuls.to_dict())
-    config['Develop']['Model']['Test metrics'] = test_resuls.to_dict()
+
+    test_results_res = test_results[['AUC', 'F1', 'Accuracy', 'Precision', 'Recall']].to_dict()
+    test_results_res_dict = {metric:list(value.values())[0] for metric, value in test_results_res.items()}
+
+    mlflow.log_metrics(test_results_res_dict)
+    config['Develop']['Model']['Test metrics'] = test_results_res_dict
 
     # log model manually
-    model_info = mlflow.sklearn.log_model(sk_model = model, artifact_path = artifact_path)
+    print('logging model')
+    model_info = mlflow.sklearn.log_model(sk_model = model, artifact_path = artifact_path, registered_model_name = model_name)
     print('Model Logged successfully')  
 
     # save model run
@@ -155,7 +166,6 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
             stage = 'Staging'
         )
         print(f'Staged previous model version:{model_version_info.version - 1}')
-
 
 # save to config
 json_object = json.dumps(config, indent=4)

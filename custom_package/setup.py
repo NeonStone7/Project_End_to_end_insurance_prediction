@@ -2,7 +2,7 @@
 from setuptools import setup
 setup(
     name = 'package',
-    version = '0.1.7.3',
+    version = '0.1.7.4',
     description = 'Useful functions for training and deployment',
     author_email = 'oamenmodupe@gmail.com',
     packages = ['package.data_retrieval', 'package.eda', 'package.training', 'package.preprocessing'],

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Oamen/OneDrive/Documents/DATA PROJECTS/Insurance_claim_prediction_porto/model_artifacts/0db7f1a187c944af80d96fc873979373/artifacts
+end_time: 1716807072729
+entry_point_name: ''
+experiment_id: '968762672263383880'
+lifecycle_stage: active
+run_id: 0db7f1a187c944af80d96fc873979373
+run_name: creating_insurance_model
+run_uuid: 0db7f1a187c944af80d96fc873979373
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1716807070458
+status: 4
+tags: []
+user_id: Oamen
