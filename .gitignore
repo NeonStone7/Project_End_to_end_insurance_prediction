@@ -32,7 +32,9 @@ MANIFEST
 *.spec
 
 .env
-
+/deploy/templates/data_and_target_drift_dashboard.html
+/develop/logs/
+test_file.py
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
