@@ -32,7 +32,7 @@ oot = test_df.sample(2000)
 
 config['Monitoring'] = {}
 
-monitor_dashboard_path = config['Monitoring']['dashboard_path'] = './deploy/data_and_target_drift_dashboard.html'
+monitor_dashboard_path = config['Monitoring']['dashboard_path'] = './deploy/templates/data_and_target_drift_dashboard.html'
 
 # Create instances of the tab classes
 data_drift_tab = DataDriftTab()

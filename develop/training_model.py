@@ -54,6 +54,7 @@ preprocessor_model = mlflow.pyfunc.load_model(preprocessor_uri)
 xtrain_processed = preprocessor_model.predict(xtrain)
 xval_processed = preprocessor_model.predict(xval)
 xtest_processed = preprocessor_model.predict(xtest)
+config['Develop']['Model']['all_columns'] = xtrain_processed
 
 # resample train data
 under_sampler = RandomUnderSampler()
