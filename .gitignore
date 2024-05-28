@@ -33,6 +33,8 @@ MANIFEST
 
 .env
 /deploy/templates/data_and_target_drift_dashboard.html
+
+
 /develop/logs/
 test_file.py
 # Installer logs
