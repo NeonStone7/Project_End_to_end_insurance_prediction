@@ -1,4 +1,9 @@
 pandas
 flask
 mlflow
+scikit-learn
+category_encoders
+numpy
+xgboost
+imblearn
 ./custom_package/dist/package-0.1.7.4-py3-none-any.whl 

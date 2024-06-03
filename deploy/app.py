@@ -3,16 +3,17 @@ import pandas as pd
 from flask import Flask, render_template, request, send_file
 import mlflow
 from sklearn import set_config
-set_config(transform_output = 'pandas')
+
+set_config(transform_output='pandas')
 
 app = Flask(__name__)
 
-# open config
+# Open config
 CONFIG_PATH = './config.json'
 with open(CONFIG_PATH, 'r') as config_file:
     config = json.load(config_file)
 
-# extract required variables
+# Extract required variables
 experiment_name = config['Develop']['Preprocessor']['experiment_name']
 run_name = config['Develop']['Model']['run_name']
 model_name = config['Develop']['Model']['model_name']
@@ -22,54 +23,45 @@ preprocessor_run_id = config['Develop']['Preprocessor']['run_id']
 preprocessor_artifact_path = config['Develop']['Preprocessor']['artifact_path']
 selected_columns = config['Develop']['Model']['selected_columns']
 
-# Load model and preprocessor only once
-preprocessor_uri = f"runs:/{preprocessor_run_id}/{preprocessor_artifact_path}"
+# get preprocessor uri
+preprocessor_uri = f'./model_artifacts/{preprocessor_run_id}/artifacts/preprocessor_artifacts'
 preprocessor_model = mlflow.pyfunc.load_model(preprocessor_uri)
+print(f"Preprocessor URI: {preprocessor_uri}")
 
-model_uri = f'runs:/{model_run_id}/{model_artifact_path}'
+#model_uri = f'runs:/{model_run_id}/{model_artifact_path}'
+model_uri = f'./model_artifacts/{model_run_id}/artifacts/model_artifacts'
 model = mlflow.sklearn.load_model(model_uri)
+print(f"Model URI: {model_uri}")
 
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
-
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    # bad practice
-    from sklearn import set_config
-    set_config(transform_output = 'pandas')
+    set_config(transform_output='pandas')
 
     if request.method == 'POST':
-        file = request.files.get('file')  # Use request.files.get to safely get the file
+        file = request.files.get('file')
         if file:
-            # read the csv file
             input_df = pd.read_csv(file)
 
-            # preprocess the data
+            # Preprocess the data
             input_df_processed = preprocessor_model.predict(input_df)
             input_df_processed = input_df_processed[selected_columns]
 
-            # get predictions and add to file
+            # Get predictions and add to file
             input_df['Prediction'] = model.predict(input_df_processed)
 
-            # save the csv
             save_output_path = './deploy/output_data.csv'
             input_df.to_csv(save_output_path, index=False)
 
             file_name = 'output_data.csv'
-            # return the csv
             return send_file(file_name, as_attachment=True)
         else:
             return render_template('predict.html', message="No file provided")
-    return render_template('predict.html')  # Render the file upload form
-
-
-# @app.route('/monitor')
-# def monitor():
-#     return render_template('data_and_target_drift_dashboard.html')
-
+    return render_template('predict.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

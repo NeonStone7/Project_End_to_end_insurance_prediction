@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1716983560831
+current_stage: Production
+description: null
+last_updated_timestamp: 1716983560888
+name: insurance_model
+run_id: f0f343757fba4ff6bde5ebd19feb10d0
+run_link: null
+source: model_artifacts/model_artifacts
+status: READY
+status_message: null
+storage_location: model_artifacts/model_artifacts
+user_id: null
+version: 14

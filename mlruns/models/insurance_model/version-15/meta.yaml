@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1716983852109
+current_stage: Staging
+description: null
+last_updated_timestamp: 1716983852399
+name: insurance_model
+run_id: 13351a4c7b284b0d98e23a622f4efa4f
+run_link: null
+source: file:///C:/Users/Oamen/OneDrive/Documents/DATA PROJECTS/Insurance_claim_prediction_porto/model_artifacts/13351a4c7b284b0d98e23a622f4efa4f/artifacts/model_artifacts
+status: READY
+status_message: null
+storage_location: file:///C:/Users/Oamen/OneDrive/Documents/DATA PROJECTS/Insurance_claim_prediction_porto/model_artifacts/13351a4c7b284b0d98e23a622f4efa4f/artifacts/model_artifacts
+user_id: null
+version: 15

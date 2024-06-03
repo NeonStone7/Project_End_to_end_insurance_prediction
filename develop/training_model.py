@@ -54,7 +54,7 @@ preprocessor_model = mlflow.pyfunc.load_model(preprocessor_uri)
 xtrain_processed = preprocessor_model.predict(xtrain)
 xval_processed = preprocessor_model.predict(xval)
 xtest_processed = preprocessor_model.predict(xtest)
-config['Develop']['Model']['all_columns'] = xtrain_processed
+config['Develop']['Model']['all_columns'] = xtrain_processed.columns.to_list()
 
 # resample train data
 under_sampler = RandomUnderSampler()
@@ -136,6 +136,7 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
     # log model manually
     print('logging model')
     model_info = mlflow.sklearn.log_model(sk_model = model, artifact_path = artifact_path, registered_model_name = model_name)
+    config['Develop']['Model']['Model_uri'] = model_info.model_uri
     print('Model Logged successfully')  
 
     # save model run

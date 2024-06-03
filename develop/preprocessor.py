@@ -105,6 +105,7 @@ def main():
         )
         
         print('Preprocessor logged successfully')
+        config['Develop']['Preprocessor']['Preprocessor_uri'] = model_info.model_uri
 
         config['Develop']['Preprocessor']['run_id'] = preprocessor_run.info.run_id
 
