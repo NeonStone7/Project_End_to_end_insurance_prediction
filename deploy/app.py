@@ -47,6 +47,7 @@ def predict():
     """This is the predict function. It takes in a csv file,
       makes predictions on all samples and returns an output 
       csv file with the predicition column"""
+    
     set_config(transform_output='pandas')
 
     if request.method == 'POST':
