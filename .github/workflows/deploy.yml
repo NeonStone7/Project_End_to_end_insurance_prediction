@@ -21,11 +21,7 @@ jobs:
         pip install -r requirements.txt
         pip install pylint
         pip install jupytext
-    
-    - name: Convert jupyter files to py files
-      run: |
-        jupytext --to py $(git ls-files '*.ipynb')
-
+  
     - name: Run pylint
       run: |
         pylint --recursive=y *.py **/*.py **/**/*.py **/**/**/*.py  --fail-under=8.0

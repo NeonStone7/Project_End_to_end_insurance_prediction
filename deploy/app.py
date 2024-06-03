@@ -1,3 +1,5 @@
+"""This is a flask web app to perform batch prediction using the
+model registered to mlflow"""
 import json
 import pandas as pd
 from flask import Flask, render_template, request, send_file
@@ -36,10 +38,15 @@ print(f"Model URI: {model_uri}")
 
 @app.route('/')
 def home():
+    """This is the home page. It contains links to the documentation,
+      github repo, predict page etd"""
     return render_template('home.html')
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
+    """This is the predict function. It takes in a csv file,
+      makes predictions on all samples and returns an output 
+      csv file with the predicition column"""
     set_config(transform_output='pandas')
 
     if request.method == 'POST':
@@ -59,8 +66,8 @@ def predict():
 
             file_name = 'output_data.csv'
             return send_file(file_name, as_attachment=True)
-        else:
-            return render_template('predict.html', message="No file provided")
+        
+        return render_template('predict.html', message="No file provided")
     return render_template('predict.html')
 
 if __name__ == '__main__':

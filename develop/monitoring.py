@@ -1,8 +1,6 @@
 """Module to set up monitoring for model. This script will use EvidentlyAI
 to check for drift"""
-
 # Import necessary modules and functions
-
 import json
 import warnings
 warnings.simplefilter(action="ignore")
@@ -32,7 +30,7 @@ oot = test_df.sample(2000)
 
 config['Monitoring'] = {}
 
-monitor_dashboard_path = config['Monitoring']['dashboard_path'] = './deploy/templates/data_and_target_drift_dashboard.html'
+MONITOR_DASHBOARD_PATH = config['Monitoring']['dashboard_path'] = './deploy/templates/data_and_target_drift_dashboard.html'
 
 # Create instances of the tab classes
 data_drift_tab = DataDriftTab()
@@ -42,6 +40,4 @@ cat_target_drift_tab = CatTargetDriftTab()
 drift_dashboard = Dashboard(tabs=[data_drift_tab, cat_target_drift_tab])
 drift_dashboard.calculate(full_train_df, oot, column_mapping = None)
 
-drift_dashboard.save(monitor_dashboard_path)
-
-
+drift_dashboard.save(MONITOR_DASHBOARD_PATH)

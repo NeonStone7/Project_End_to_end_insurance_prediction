@@ -28,6 +28,7 @@ xgb_search_space = {
 }
 
 def objective(params, n_folds, x, y):
+    """Creates objective function for xgb hyperopt"""
     
     params['scale_pos_weight'] = int(params['scale_pos_weight'])
     params['max_depth'] = int(params['max_depth'])
@@ -49,7 +50,7 @@ def objective(params, n_folds, x, y):
 
 
 def run_hyperparameter_tuning(xtrain_exp1, ytrain_exp1):
-    
+    """Runs the tuning trials"""
     #  optimize with the TPE algorithm
     trials_x = Trials()
     n_folds = 4

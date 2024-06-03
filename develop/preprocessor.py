@@ -30,8 +30,8 @@ with open(CONFIG_PATH, 'r') as file:
 
 # Define functions
 def split_and_load(full_train_df=None, validation_df=None, test_df=None):
-
     """This takes in the sets retrieved from s3 and splits it into dependent and independent variables"""
+    
     if full_train_df is None or validation_df is None or test_df is None:
         full_train_df, validation_df, test_df = load_data()
 
@@ -42,7 +42,6 @@ def split_and_load(full_train_df=None, validation_df=None, test_df=None):
     return xtrain, ytrain, xval, yval, xtest, ytest
 
 def load_pipeline():
-
     """This creates the preprocessor pipeline so we can preprocess the data"""
 
     categorical_col_input = config['Model Training']['Preprocessor']['Categorical_input_columns']

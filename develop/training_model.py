@@ -12,7 +12,7 @@ from mlflow import MlflowClient
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
 from preprocessor import split_and_load
-from hyperparameter_tuning import run_hyperparameter_tuning
+#from hyperparameter_tuning import run_hyperparameter_tuning
 import pandas as pd
 import xgboost as xgb
 from imblearn.under_sampling import RandomUnderSampler
@@ -34,15 +34,15 @@ with open(CONFIG_PATH, 'r') as file:
 
 config['Develop']['Model'] = {}
 
-experiment_name = config['Develop']['Preprocessor']['experiment_name'] 
-run_name = config['Develop']['Model']['run_name'] = 'creating_insurance_model'
-model_name = config['Develop']['Model']['model_name'] = 'insurance_model'
-artifact_path = config['Develop']['Model']['artifact_path'] = 'model_artifacts'
+EXPERIMENT_NAME = config['Develop']['Preprocessor']['experiment_name'] 
+RUN_NAME = config['Develop']['Model']['run_name'] = 'creating_insurance_model'
+MODEL_NAME = config['Develop']['Model']['model_name'] = 'insurance_model'
+ARTIFACT_PATH = config['Develop']['Model']['artifact_path'] = 'model_artifacts'
 preprocessor_run_id = config['Develop']['Preprocessor']['run_id']
 preprocessor_artifact_path = config['Develop']['Preprocessor']['artifact_path']
 
 # set or create the experiment and retrieve the experiment_id
-experiment_id = set_or_create_mlflow_experiment(experiment_name, artifact_path)
+experiment_id = set_or_create_mlflow_experiment(EXPERIMENT_NAME, ARTIFACT_PATH)
 
 # retrieve split data
 xtrain, ytrain, xval, yval, xtest, ytest = split_and_load()
@@ -72,16 +72,16 @@ xtrain_samp = xtrain_samp[selected_columns]
 xval_processed = xval_processed[selected_columns]
 xtest_processed = xtest_processed[selected_columns]
 
-experiment_id = set_or_create_mlflow_experiment(experiment_name, artifact_path)
+experiment_id = set_or_create_mlflow_experiment(EXPERIMENT_NAME, ARTIFACT_PATH)
 
 config['Develop']['Hyperparameter_Tuning'] = {}
-hyp_run_name = config['Develop']['Hyperparameter_Tuning']['run_name'] = 'hyperparameter_tuning'
+HYP_RUN_NAME = config['Develop']['Hyperparameter_Tuning']['run_name'] = 'hyperparameter_tuning'
 
-with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=True) as model_run:
+with mlflow.start_run(run_name=RUN_NAME, experiment_id=experiment_id, nested=True) as model_run:
 
     client = MlflowClient()
     
-    # with mlflow.start_run(run_name = hyp_run_name, experiment_id=experiment_id, nested=True) as tuning_run:
+    # with mlflow.start_run(run_name = HYP_RUN_NAME, experiment_id=experiment_id, nested=True) as tuning_run:
         
     #     # perform hyperparameter tuning and save best hyperparameters and loss to config
     #     loss, hyperparams = run_hyperparameter_tuning(xval_processed, yval)
@@ -135,7 +135,7 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
 
     # log model manually
     print('logging model')
-    model_info = mlflow.sklearn.log_model(sk_model = model, artifact_path = artifact_path, registered_model_name = model_name)
+    model_info = mlflow.sklearn.log_model(sk_model = model, artifact_path = ARTIFACT_PATH, registered_model_name = MODEL_NAME)
     config['Develop']['Model']['Model_uri'] = model_info.model_uri
     print('Model Logged successfully')  
 
@@ -144,14 +144,14 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
 
     # register model 
     model_version_info = client.create_model_version(
-        name = model_name,
-        source = f'{model_info.artifact_path}/{artifact_path}',
+        name = MODEL_NAME,
+        source = f'{model_info.artifact_path}/{ARTIFACT_PATH}',
         run_id = model_run_id
     )
 
     # transition to production
     client.transition_model_version_stage(
-        name = model_name,
+        name = MODEL_NAME,
         version = model_version_info.version,
         stage = 'Production'
     )
@@ -163,7 +163,7 @@ with mlflow.start_run(run_name=run_name, experiment_id=experiment_id, nested=Tru
     # transition previous model to staging
     if config['Develop']['Model']['model_version']:
         client.transition_model_version_stage(
-            name = model_name,
+            name = MODEL_NAME,
             version = model_version_info.version - 1,
             stage = 'Staging'
         )

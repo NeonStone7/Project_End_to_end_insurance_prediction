@@ -2,7 +2,6 @@
 import mlflow
 
 def set_or_create_mlflow_experiment(experiment_name, artifact_location, tags = {'env':'dev','version':'1.0.0'}):
-
     """Create the experiment if it does not exist else set the experiment
     Returns: experiment _id for the experiment"""
 
@@ -22,4 +21,3 @@ def set_or_create_mlflow_experiment(experiment_name, artifact_location, tags = {
         mlflow.set_experiment(experiment_id=exp_id)
 
     return exp_id
-
